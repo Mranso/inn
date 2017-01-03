@@ -7,11 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.inn.inn.FirstFragment;
-import com.inn.inn.FourthFragment;
 import com.inn.inn.R;
-import com.inn.inn.SecondFragment;
-import com.inn.inn.ThirdFragment;
 import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.NoScrollViewPager;
 
