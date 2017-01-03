@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        maven {
+            url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories"
+        }
+    }
 }
 
 dependencies {
@@ -34,4 +39,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.taobao.android:alisdk-hotfix:1.4.0'
 }

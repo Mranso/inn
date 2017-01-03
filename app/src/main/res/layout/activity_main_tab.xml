@@ -4,58 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <RadioGroup
         android:id="@+id/main_tab_radio_group"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EEEEEE"
         android:layout_alignParentBottom="true"
+        android:background="#EEEEEE"
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/main_tab_radio_first"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:button="@null"
             android:background="@null"
+            android:button="@null"
             android:gravity="center_horizontal|center_vertical"
             android:text="每日"
             android:textSize="16sp" />
 
         <RadioButton
+            android:id="@+id/main_tab_radio_second"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:button="@null"
             android:background="@null"
+            android:button="@null"
             android:gravity="center_horizontal|center_vertical"
             android:text="搜索"
             android:textSize="16sp" />
 
         <RadioButton
+            android:id="@+id/main_tab_radio_third"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:button="@null"
             android:background="@null"
+            android:button="@null"
             android:gravity="center_horizontal|center_vertical"
             android:text="福利"
             android:textSize="16sp" />
 
         <RadioButton
+            android:id="@+id/main_tab_radio_fourth"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:button="@null"
             android:background="@null"
+            android:button="@null"
             android:gravity="center_horizontal|center_vertical"
             android:text="个人"
             android:textSize="16sp" />
     </RadioGroup>
 
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_above="@id/main_tab_radio_group"
+        android:background="@android:color/black" />
+
     <com.inn.inn.customview.NoScrollViewPager
         android:id="@+id/main_tab_view_page"
-        android:layout_above="@id/main_tab_radio_group"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/line_view" />
 </RelativeLayout>

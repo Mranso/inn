@@ -2,23 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.inn.inn">
 
+    <!--网络权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--外部存储读权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".common.InnApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="5886125a4984194b18c76795e27eea55" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIj4x+3BitWR71QRqOFnZWlHvLbS9RW5rPE6bQ1r8297+azNPkK59iN3nuiegOS2AbxKx5xxahohZbtV/pTPe7Iufb0mWF3PJXzSJS4qp0L2d+iBm6qheAS8wBDwbER4GBlVD6vFHf7X1OD2hu3U3vu5wH7MDo/vXMG2PIyMDPOp8pB3l9yUTHiMVgouqOe6mGF1szL4+EKRIMfrTkPXEcjgxfml10xmqbEYF4XVvKg++jBjytXBkAcN0yWJUitjMsFyyshSbQHkgCeZyVUsDDAuG9uOXyTnVABuKqhU3fkIinDUHvPVSEW0+l5Y9umR9OoHz9U28pH36vJidWRJHpAgMBAAECggEAA4A9+5jr9Vqw56cTR5esySYeYxas1Ma8lRDKwKp++/6nIZShvkHkrlo5jqhpnJZEPzfXquiGxJuHuGIaIoBtcp7RXUz26LdKo625A6lhQFXzgInvqQp/DoZEMWCJxbNZ12E74KSY6UfEADDUqdrDGYQ03Q6M74RD1iREQaT/eJ6NbvhI19aDWKkKGHy9XEopTn4OAuLyaR1hUqRTJrpJ61YGfNgEt0dJCmz31evIrKE66Tn87Gj5MvcRwK4mvVh2fj8G52mZCjKUAlb5vzMyAXIJgkndjslJE4+AqqKpJBAccTqX8sakdQZKGNJw/OUGWfcGOXvWgzuEcpudn3z1gQKBgQDoA/vXkWQ0/anNVOP42S5byro54dvvcdm6+t+zF7AKPoOBAQlkXrROc6KevpCBNxd0ULmQEsk9aQWk5pIie4aCr4Jac21TYiI9N1cmStA4Z3NUQep33Ml38YIbjsPR4j/gYRlAfNX+UckZdUT3ktKj1fjcrqZa4vBCUyR4oDLvlQKBgQDdSyaHCvjvv/BBGlQDYUTj9pVotyd5kXYt45ohVvirbUU2lmWoryImgy3unFjN86s955SyVTnh3veXO69OEPy0Wx9OGMHLa2J8RDNzHnBcWqf0WQmKlOIccjF7cPD5lv4x0c4l1viD7CNqTguZzBuvnQvV5mHkJYGoMQcAXcVUBQKBgEnJ8o+FivQbdKR8CiD7mXXSDNYZ0ePeNpvz668+qlsntJUTqlQElp2YwzBvdO/TgJ8aiVmbz+q6+vON7Q4QcSAhB3kS2sM5I6CKeCoSgxRdOl2itRo32s9NvM5c4kRfC2emGezbhwdiJW32UN/YDyvSAlrVJM0k/bpqTOAcOvbdAoGBAK/6tE/N/PsDwzayjj8F2jgC/vwAMuctMzL4/bgnpqcExXbMkVlctKa1yRAoy0I01WfsQsaymc4yduiQcS9+uMdgc3uymmJ/KhmyTsvsV+RJv6jEKZ9IGKwQb6M/xJJnbgwGUY6r7oNShTNjjzwmIZo9JI1coVpCLWKoYm37JBJVAoGAAw1OzYhOXEQeJjA8PC8XKGWrHkRE1OyzyTOKbQIkLQ1uDI4DQNLL2+lN8EWVxv1buO1HPed/zR/677Ttx+eDZLe+C3LQuuyjAoNWlVNVEWAXXCo+Is4Lggnx3i0zCIgfd3+FpKY5ZBqspG8jh/c7aIBfxk9ieVlf8rIfKWCqakU=" />
 
         <activity
-            android:name=".MainTabActivity"
+            android:name=".mainpage.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>>
+
+        <activity
+            android:name=".mainpage.MainTabActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
