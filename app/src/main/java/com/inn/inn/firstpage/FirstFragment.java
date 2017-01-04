@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.inn.inn.R;
+import com.inn.inn.customview.TopBarView;
+import com.inn.inn.firstpage.model.DayList;
 import com.inn.inn.firstpage.model.TimeList;
 import com.inn.inn.network.InnHttpClient;
 
@@ -28,8 +30,11 @@ public class FirstFragment extends Fragment {
 
     private Context context;
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private List<DayList> dayLists = new ArrayList<>();
+    private List<String> timeLists = new ArrayList<>();
 
     private RecyclerView recyclerView;
+    private TopBarView topBarView;
     private FirstPageRecycleViewAdapter firstPageRecycleViewAdapter;
 
     @Nullable
@@ -40,17 +45,35 @@ public class FirstFragment extends Fragment {
         View view = inflater.inflate(R.layout.first_fragment_layout, container, false);
         initView(view);
         initRecycleView();
+        initListener();
         return view;
     }
 
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.first_page_recycle_view);
+        topBarView = (TopBarView) view.findViewById(R.id.first_page_top_bar);
     }
 
-    private void initRecycleView(){
+    private void initRecycleView() {
         firstPageRecycleViewAdapter = new FirstPageRecycleViewAdapter(context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(firstPageRecycleViewAdapter);
+    }
+
+    private void initListener() {
+        topBarView.setOnTopBarClickListener(new TopBarView.TopBarClickListener() {
+            @Override
+            public void leftClickListener() {
+
+            }
+
+            @Override
+            public void rightClickListener() {
+                for (int i = 0; i < 21; i++) {
+                    getDayListData(timeLists.get(i));
+                }
+            }
+        });
     }
 
     @Override
@@ -66,7 +89,22 @@ public class FirstFragment extends Fragment {
                 .subscribe(new Action1<TimeList>() {
                     @Override
                     public void call(TimeList timeList) {
-                        firstPageRecycleViewAdapter.refreshData(timeList.getResults());
+                        timeLists = timeList.getResults();
+                    }
+                });
+        compositeSubscription.add(subscription);
+    }
+
+    private void getDayListData(String timeString) {
+        String time = timeString.replaceAll("-", "/");
+        Subscription subscription = InnHttpClient.getHttpServiceInstance().getDayList(time)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<DayList>() {
+                    @Override
+                    public void call(DayList dayList) {
+                        dayLists.add(dayList);
+                        firstPageRecycleViewAdapter.refreshData(dayLists);
                     }
                 });
         compositeSubscription.add(subscription);

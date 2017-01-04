@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <com.inn.inn.customview.TopBarView
+        android:id="@+id/first_page_top_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 

@@ -3,6 +3,8 @@ package com.inn.inn.common;
 import android.app.Application;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.taobao.hotfix.HotFixManager;
 import com.taobao.hotfix.PatchLoadStatusListener;
 import com.taobao.hotfix.util.PatchStatusCode;
@@ -16,6 +18,12 @@ public class InnApplication extends Application {
         super.onCreate();
         initApp();
         initHotFix();
+        initImageLoader();
+    }
+
+    private void initImageLoader() {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
     }
 
     private void initApp() {
