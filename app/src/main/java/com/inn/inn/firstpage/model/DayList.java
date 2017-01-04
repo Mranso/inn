@@ -10,22 +10,27 @@ public class DayList {
 
     private DataTypeResult results;
 
-    public void setString(List<String> category){
+    public List<String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<String> category) {
         this.category = category;
     }
-    public List<String> getString(){
-        return this.category;
+
+    public boolean isError() {
+        return error;
     }
-    public void setError(boolean error){
+
+    public void setError(boolean error) {
         this.error = error;
     }
-    public boolean getError(){
-        return this.error;
+
+    public DataTypeResult getResults() {
+        return results;
     }
-    public void setResults(DataTypeResult results){
+
+    public void setResults(DataTypeResult results) {
         this.results = results;
-    }
-    public DataTypeResult getResults(){
-        return this.results;
     }
 }

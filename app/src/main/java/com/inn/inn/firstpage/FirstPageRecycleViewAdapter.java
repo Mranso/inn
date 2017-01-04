@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.inn.inn.R;
 import com.inn.inn.firstpage.model.DataTypeResult;
 import com.inn.inn.firstpage.model.DayList;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -40,24 +41,59 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
     public void onBindViewHolder(TimeListViewHolder holder, int position) {
         DataTypeResult dataTypeResult = dayDataList.get(position).getResults();
         if (dataTypeResult.get福利() != null) {
-            ImageLoader.getInstance().displayImage(dataTypeResult.get福利().get(0).getUrl(), holder.imageView);
+            ImageLoader.getInstance().displayImage(dataTypeResult.get福利().get(0).getUrl(), holder.imageView, new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build());
         }
-        if (dataTypeResult.getAndroid() != null) {
-            holder.sourceOne.setText(dataTypeResult.getAndroid().get(0).getDesc());
+        List<String> categoryLists = dayDataList.get(position).getCategory();
+        for (int i = 0; i < 4; i++) {
+            switch (i) {
+                case 0:
+                    holder.sourceOne.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    break;
+                case 1:
+                    holder.sourceTwo.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    break;
+                case 2:
+                    holder.sourceThree.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    break;
+                case 3:
+                    holder.sourceFour.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    break;
+            }
         }
+    }
 
-        if (dataTypeResult.getiOS() != null) {
-            holder.sourceTwo.setText(dataTypeResult.getiOS().get(0).getDesc());
+    private String getSourceString(String category, DataTypeResult dataTypeResult) {
+        String sourceString = "";
+        switch (category) {
+            case "Android":
+                sourceString = dataTypeResult.getAndroid().get(0).getDesc();
+                break;
+            case "iOS":
+                sourceString = dataTypeResult.getiOS().get(0).getDesc();
+                break;
+            case "休息视频":
+                sourceString = dataTypeResult.get休息视频().get(0).getDesc();
+                break;
+            case "拓展资源":
+                sourceString = dataTypeResult.get拓展资源().get(0).getDesc();
+                break;
+            case "福利":
+                sourceString = dataTypeResult.get福利().get(0).getDesc();
+                break;
+            case "瞎推荐":
+                sourceString = dataTypeResult.get瞎推荐().get(0).getDesc();
+                break;
+            case "前端":
+                sourceString = dataTypeResult.get前端().get(0).getDesc();
+                break;
+            case "App":
+                sourceString = dataTypeResult.getApp().get(0).getDesc();
+                break;
+            case "all":
+                sourceString = dataTypeResult.getAll().get(0).getDesc();
+                break;
         }
-
-        if (dataTypeResult.get前端() != null) {
-            holder.sourceThree.setText(dataTypeResult.get前端().get(0).getDesc());
-        }
-
-        if (dataTypeResult.get拓展资源() != null) {
-            holder.sourceFour.setText(dataTypeResult.get拓展资源().get(0).getDesc());
-        }
-
+        return sourceString;
     }
 
     class TimeListViewHolder extends RecyclerView.ViewHolder {

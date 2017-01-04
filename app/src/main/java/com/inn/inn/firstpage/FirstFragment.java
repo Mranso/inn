@@ -36,6 +36,8 @@ public class FirstFragment extends Fragment {
     private RecyclerView recyclerView;
     private TopBarView topBarView;
     private FirstPageRecycleViewAdapter firstPageRecycleViewAdapter;
+    private int pageSize = 20;
+    private int pageIndex = 0;
 
     @Nullable
     @Override
@@ -69,9 +71,11 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void rightClickListener() {
-                for (int i = 0; i < 21; i++) {
+                for (int i = pageIndex; i <= pageSize; i++) {
                     getDayListData(timeLists.get(i));
                 }
+                pageSize += 20;
+                pageIndex += 21;
             }
         });
     }
