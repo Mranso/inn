@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.NoScrollViewPager;
+import com.inn.inn.firstpage.FirstFragment;
 
 import java.util.ArrayList;
 

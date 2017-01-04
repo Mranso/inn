@@ -19,11 +19,11 @@ public class InnApplication extends Application {
     }
 
     private void initApp() {
-        this.appId = "83545-1";
+        appId = "83545-1";
         try {
-            this.appVersion = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+            appVersion = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
         } catch (Exception e) {
-            this.appVersion = "1.0.0";
+            appVersion = "1.0.0";
         }
     }
 

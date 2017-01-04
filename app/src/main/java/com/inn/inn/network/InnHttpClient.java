@@ -14,22 +14,22 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class InnHttpClent {
+public class InnHttpClient {
 
     private static HttpService innHttpService = null;
 
     public static HttpService getHttpServiceInstance() {
         if (innHttpService == null) {
-            synchronized (InnHttpClent.class) {
+            synchronized (InnHttpClient.class) {
                 if (innHttpService == null) {
-                    innHttpService = creatService(HttpService.class, "");
+                    innHttpService = createService(HttpService.class, InnApi.INN_BASE_API);
                 }
             }
         }
         return innHttpService;
     }
 
-    private static <T> T creatService(Class<T> serviceClass, String baseUrl) {
+    private static <T> T createService(Class<T> serviceClass, String baseUrl) {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         clientBuilder.readTimeout(30, TimeUnit.SECONDS);
         clientBuilder.writeTimeout(20, TimeUnit.SECONDS);
