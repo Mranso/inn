@@ -1,6 +1,7 @@
 package com.inn.inn.firstpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.inn.inn.R;
 import com.inn.inn.customview.TopBarView;
 import com.inn.inn.firstpage.model.DayList;
 import com.inn.inn.firstpage.model.TimeList;
+import com.inn.inn.mainpage.WelcomeActivity;
 import com.inn.inn.network.InnHttpClient;
 
 import java.util.ArrayList;
@@ -36,8 +38,6 @@ public class FirstFragment extends Fragment {
     private RecyclerView recyclerView;
     private TopBarView topBarView;
     private FirstPageRecycleViewAdapter firstPageRecycleViewAdapter;
-    private int pageSize = 20;
-    private int pageIndex = 0;
 
     @Nullable
     @Override
@@ -54,6 +54,7 @@ public class FirstFragment extends Fragment {
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.first_page_recycle_view);
         topBarView = (TopBarView) view.findViewById(R.id.first_page_top_bar);
+        topBarView.setTopBarTitle("每日推荐");
     }
 
     private void initRecycleView() {
@@ -71,11 +72,7 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void rightClickListener() {
-                for (int i = pageIndex; i <= pageSize; i++) {
-                    getDayListData(timeLists.get(i));
-                }
-                pageSize += 20;
-                pageIndex += 21;
+
             }
         });
     }
@@ -84,19 +81,19 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData();
+        loadNetData();
+    }
+
+    private void loadNetData() {
+        for (int i = 0; i <= 20; i++) {
+            getDayListData(timeLists.get(i));
+        }
     }
 
     private void initData() {
-        Subscription subscription = InnHttpClient.getHttpServiceInstance().getTimeList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<TimeList>() {
-                    @Override
-                    public void call(TimeList timeList) {
-                        timeLists = timeList.getResults();
-                    }
-                });
-        compositeSubscription.add(subscription);
+        Intent intent = getActivity().getIntent();
+        TimeList timeList = (TimeList) intent.getSerializableExtra(WelcomeActivity.BASE_TIME_DATA);
+        timeLists = timeList.getResults();
     }
 
     private void getDayListData(String timeString) {

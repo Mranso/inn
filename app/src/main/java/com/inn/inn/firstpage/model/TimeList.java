@@ -1,8 +1,9 @@
 package com.inn.inn.firstpage.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TimeList {
+public class TimeList implements Serializable{
 
     private boolean error;
 

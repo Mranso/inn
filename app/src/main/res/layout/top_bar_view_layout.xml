@@ -15,6 +15,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:text="返回"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
@@ -24,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="12dp"
-            android:text="标题"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
@@ -37,6 +37,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:text="更多"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
