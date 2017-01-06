@@ -2,6 +2,7 @@ package com.inn.inn.mainpage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
@@ -22,6 +23,7 @@ public class WelcomeActivity extends InnBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
     }
 
