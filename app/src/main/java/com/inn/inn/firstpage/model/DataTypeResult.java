@@ -1,9 +1,10 @@
 package com.inn.inn.firstpage.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class DataTypeResult {
+public class DataTypeResult implements Serializable{
     private List<DayBaseData> Android ;
 
     private List<DayBaseData> iOS ;

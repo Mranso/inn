@@ -10,11 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.inn.inn.R;
 import com.inn.inn.customview.TopBarView;
-import com.inn.inn.firstpage.model.DayList;
+import com.inn.inn.firstpage.model.DayDetail;
 import com.inn.inn.firstpage.model.TimeList;
 import com.inn.inn.mainpage.WelcomeActivity;
 import com.inn.inn.network.InnHttpClient;
@@ -33,7 +32,7 @@ public class FirstFragment extends Fragment {
 
     private Context context;
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
-    private List<DayList> dayLists = new ArrayList<>();
+    private List<DayDetail> dayDetails = new ArrayList<>();
     private List<String> timeLists = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -80,7 +79,7 @@ public class FirstFragment extends Fragment {
         firstPageRecycleViewAdapter.setOnItemClickListener(new FirstPageRecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                DayDetailActivity.startDayDetailActivity(context, dayDetails.get(position));
             }
         });
     }
@@ -109,11 +108,11 @@ public class FirstFragment extends Fragment {
         Subscription subscription = InnHttpClient.getHttpServiceInstance().getDayList(time)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<DayList>() {
+                .subscribe(new Action1<DayDetail>() {
                     @Override
-                    public void call(DayList dayList) {
-                        dayLists.add(dayList);
-                        firstPageRecycleViewAdapter.refreshData(dayLists);
+                    public void call(DayDetail detail) {
+                        dayDetails.add(detail);
+                        firstPageRecycleViewAdapter.refreshData(dayDetails);
                     }
                 });
         compositeSubscription.add(subscription);

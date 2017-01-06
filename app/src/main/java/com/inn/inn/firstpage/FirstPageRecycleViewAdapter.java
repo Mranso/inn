@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.inn.inn.R;
 import com.inn.inn.firstpage.model.DataTypeResult;
-import com.inn.inn.firstpage.model.DayList;
+import com.inn.inn.firstpage.model.DayDetail;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageRecycleViewAdapter.TimeListViewHolder> {
 
     private Context context;
-    private List<DayList> dayDataList = new ArrayList<>();
+    private List<DayDetail> dayDataList = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
     public FirstPageRecycleViewAdapter(Context context) {
@@ -49,31 +49,32 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         List<String> categoryLists = dayDataList.get(position).getCategory();
         for (int i = 0; i < 4; i++) {
             String sourceString = getSourceString(categoryLists.get(i), dataTypeResult);
+            String content = "【" + categoryLists.get(i) + "】" + sourceString;
             switch (i) {
                 case 0:
                     if (!"".equals(sourceString)) {
-                        holder.sourceTwo.setText(sourceString);
+                        holder.sourceTwo.setText(content);
                     } else {
                         holder.sourceTwo.setVisibility(View.GONE);
                     }
                     break;
                 case 1:
                     if (!"".equals(sourceString)) {
-                        holder.sourceOne.setText(sourceString);
+                        holder.sourceOne.setText(content);
                     } else {
                         holder.sourceOne.setVisibility(View.GONE);
                     }
                     break;
                 case 2:
                     if (!"".equals(sourceString)) {
-                        holder.sourceThree.setText(sourceString);
+                        holder.sourceThree.setText(content);
                     } else {
                         holder.sourceThree.setVisibility(View.GONE);
                     }
                     break;
                 case 3:
                     if (!"".equals(sourceString)) {
-                        holder.sourceFour.setText(sourceString);
+                        holder.sourceFour.setText(content);
                     } else {
                         holder.sourceFour.setVisibility(View.GONE);
                     }
@@ -84,7 +85,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onItemClickListener != null){
+                if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(v, position);
                 }
             }
@@ -141,16 +142,16 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         }
     }
 
-    public void refreshData(List<DayList> dayDataList) {
+    public void refreshData(List<DayDetail> dayDataList) {
         this.dayDataList = dayDataList;
         notifyDataSetChanged();
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 }

@@ -1,6 +1,6 @@
 package com.inn.inn.network;
 
-import com.inn.inn.firstpage.model.DayList;
+import com.inn.inn.firstpage.model.DayDetail;
 import com.inn.inn.firstpage.model.TimeList;
 
 import retrofit2.http.GET;
@@ -17,5 +17,5 @@ public interface HttpService {
     Observable<TimeList> getTimeList();
 
     @GET("day/{time}")
-    Observable<DayList> getDayList(@Path("time") String time);
+    Observable<DayDetail> getDayList(@Path("time") String time);
 }

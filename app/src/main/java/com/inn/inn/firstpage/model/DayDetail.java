@@ -1,8 +1,9 @@
 package com.inn.inn.firstpage.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DayList {
+public class DayDetail implements Serializable{
 
     private List<String> category ;
 

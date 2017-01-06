@@ -1,6 +1,8 @@
 package com.inn.inn.firstpage.model;
 
-public class DayBaseData {
+import java.io.Serializable;
+
+public class DayBaseData implements Serializable{
 
     private String _id;
     private String createdAt;
