@@ -38,7 +38,7 @@
                 android:layout_height="48dp"
                 app:layout_collapseMode="pin"
                 app:title="每日推荐"
-                app:titleMarginStart="100dp"
+                app:titleMarginStart="60dp"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
