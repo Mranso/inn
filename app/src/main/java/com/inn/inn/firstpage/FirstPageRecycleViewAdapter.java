@@ -1,5 +1,6 @@
 package com.inn.inn.firstpage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,11 +22,11 @@ import java.util.List;
 
 public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageRecycleViewAdapter.TimeListViewHolder> {
 
-    private Context context;
+    private Activity context;
     private List<DayDetail> dayDataList = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
-    public FirstPageRecycleViewAdapter(Context context) {
+    public FirstPageRecycleViewAdapter(Activity context) {
         this.context = context;
     }
 
@@ -40,7 +41,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
     }
 
     @Override
-    public void onBindViewHolder(TimeListViewHolder holder, final int position) {
+    public void onBindViewHolder(final TimeListViewHolder holder, final int position) {
         DataTypeResult dataTypeResult = dayDataList.get(position).getResults();
         if (dataTypeResult.get福利() != null) {
             ImageLoader.getInstance().displayImage(dataTypeResult.get福利().get(0).getUrl(), holder.imageView, new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build());
@@ -85,9 +86,10 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(v, position);
-                }
+//                if (onItemClickListener != null) {
+//                    onItemClickListener.onItemClick(v, position);
+//                }
+                DayDetailActivity.startDayDetailActivity(context, dayDataList.get(position), holder.imageView);
             }
         });
     }

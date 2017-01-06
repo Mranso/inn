@@ -30,6 +30,7 @@ public class MainTabActivity extends InnBaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_tab);
         context = this;
         initView();
         initFragment();
@@ -78,11 +79,6 @@ public class MainTabActivity extends InnBaseActivity{
         thirdButton = (RadioButton) findViewById(R.id.main_tab_radio_third);
         fourthButton = (RadioButton) findViewById(R.id.main_tab_radio_fourth);
         radioGroup = (RadioGroup) findViewById(R.id.main_tab_radio_group);
-    }
-
-    @Override
-    public void setContentView() {
-        setContentView(R.layout.activity_main_tab);
     }
 
     private void switchViewPage(int flag){

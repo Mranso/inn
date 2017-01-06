@@ -18,6 +18,7 @@ public class MainActivity extends InnBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         initView();
         initListener();
     }
@@ -47,10 +48,5 @@ public class MainActivity extends InnBaseActivity {
     private void initView() {
         pullNewPatch = (Button) findViewById(R.id.pull_new_patch);
         test = (Button) findViewById(R.id.test);
-    }
-
-    @Override
-    public void setContentView() {
-        setContentView(R.layout.activity_main);
     }
 }

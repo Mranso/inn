@@ -1,14 +1,18 @@
 package com.inn.inn.common;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public abstract class InnBaseActivity extends FragmentActivity {
+import com.inn.inn.R;
+import com.inn.inn.util.StatusBarUtils;
+
+public abstract class InnBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView();
+        setTheme(R.style.BaseTheme);
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.base_color), 0);
     }
 
     @Override
@@ -36,5 +40,4 @@ public abstract class InnBaseActivity extends FragmentActivity {
         super.onDestroy();
     }
 
-    public abstract void setContentView();
 }

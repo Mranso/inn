@@ -1,5 +1,6 @@
 package com.inn.inn.firstpage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class FirstFragment extends Fragment {
     }
 
     private void initRecycleView() {
-        firstPageRecycleViewAdapter = new FirstPageRecycleViewAdapter(context);
+        firstPageRecycleViewAdapter = new FirstPageRecycleViewAdapter((Activity) context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(firstPageRecycleViewAdapter);
     }
@@ -79,7 +80,7 @@ public class FirstFragment extends Fragment {
         firstPageRecycleViewAdapter.setOnItemClickListener(new FirstPageRecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                DayDetailActivity.startDayDetailActivity(context, dayDetails.get(position));
+
             }
         });
     }

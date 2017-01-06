@@ -11,4 +11,6 @@
     <style name="LoadTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/welcome_image</item>
     </style>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
 </resources>
