@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.inn.inn.R;
@@ -22,6 +23,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
 
     private Context context;
     private List<DayList> dayDataList = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     public FirstPageRecycleViewAdapter(Context context) {
         this.context = context;
@@ -38,28 +40,55 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
     }
 
     @Override
-    public void onBindViewHolder(TimeListViewHolder holder, int position) {
+    public void onBindViewHolder(TimeListViewHolder holder, final int position) {
         DataTypeResult dataTypeResult = dayDataList.get(position).getResults();
         if (dataTypeResult.get福利() != null) {
             ImageLoader.getInstance().displayImage(dataTypeResult.get福利().get(0).getUrl(), holder.imageView, new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build());
         }
+
         List<String> categoryLists = dayDataList.get(position).getCategory();
         for (int i = 0; i < 4; i++) {
+            String sourceString = getSourceString(categoryLists.get(i), dataTypeResult);
             switch (i) {
                 case 0:
-                    holder.sourceOne.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    if (!"".equals(sourceString)) {
+                        holder.sourceTwo.setText(sourceString);
+                    } else {
+                        holder.sourceTwo.setVisibility(View.GONE);
+                    }
                     break;
                 case 1:
-                    holder.sourceTwo.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    if (!"".equals(sourceString)) {
+                        holder.sourceOne.setText(sourceString);
+                    } else {
+                        holder.sourceOne.setVisibility(View.GONE);
+                    }
                     break;
                 case 2:
-                    holder.sourceThree.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    if (!"".equals(sourceString)) {
+                        holder.sourceThree.setText(sourceString);
+                    } else {
+                        holder.sourceThree.setVisibility(View.GONE);
+                    }
                     break;
                 case 3:
-                    holder.sourceFour.setText(getSourceString(categoryLists.get(i), dataTypeResult));
+                    if (!"".equals(sourceString)) {
+                        holder.sourceFour.setText(sourceString);
+                    } else {
+                        holder.sourceFour.setVisibility(View.GONE);
+                    }
                     break;
             }
         }
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onItemClickListener != null){
+                    onItemClickListener.onItemClick(v, position);
+                }
+            }
+        });
     }
 
     private String getSourceString(String category, DataTypeResult dataTypeResult) {
@@ -76,9 +105,6 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
                 break;
             case "拓展资源":
                 sourceString = dataTypeResult.get拓展资源().get(0).getDesc();
-                break;
-            case "福利":
-                sourceString = dataTypeResult.get福利().get(0).getDesc();
                 break;
             case "瞎推荐":
                 sourceString = dataTypeResult.get瞎推荐().get(0).getDesc();
@@ -102,6 +128,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         TextView sourceThree;
         TextView sourceFour;
         ImageView imageView;
+        RelativeLayout relativeLayout;
 
         public TimeListViewHolder(View view) {
             super(view);
@@ -110,6 +137,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
             sourceTwo = (TextView) view.findViewById(R.id.first_page_list_item_source_two);
             sourceThree = (TextView) view.findViewById(R.id.first_page_list_item_source_three);
             sourceFour = (TextView) view.findViewById(R.id.first_page_list_item_source_four);
+            relativeLayout = (RelativeLayout) view.findViewById(R.id.first_page_list_item_layout);
         }
     }
 
@@ -118,4 +146,11 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view, int position);
+    }
 }

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.inn.inn.R;
 import com.inn.inn.customview.TopBarView;
@@ -72,6 +73,13 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void rightClickListener() {
+
+            }
+        });
+
+        firstPageRecycleViewAdapter.setOnItemClickListener(new FirstPageRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
 
             }
         });
