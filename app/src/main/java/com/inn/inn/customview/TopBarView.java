@@ -71,15 +71,23 @@ public class TopBarView extends RelativeLayout {
         void rightClickListener();
     }
 
-    public void setTopBarTitle(String string){
+    public void setTopBarTitle(String string) {
         titleText.setText(string);
     }
 
-    public void setTopBarBackText(String string){
+    public void setTopBarBackText(String string) {
         backText.setText(string);
     }
 
-    public void setTopBarMoreText(String string){
+    public void setTopBarMoreText(String string) {
         moreText.setText(string);
+    }
+
+    public void setTopBarLeftVisibility(boolean visibility) {
+        if (visibility) {
+            backText.setVisibility(VISIBLE);
+        } else {
+            backText.setVisibility(GONE);
+        }
     }
 }

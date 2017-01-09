@@ -69,7 +69,7 @@ public class DayDetailActivity extends InnBaseActivity {
     private void loadData() {
         if (null != dayDetail.getResults().getAndroid()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().getAndroid()) {
-                androidContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                androidContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             androidContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -78,7 +78,7 @@ public class DayDetailActivity extends InnBaseActivity {
 
         if (null != dayDetail.getResults().getiOS()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().getiOS()) {
-                iOSContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                iOSContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             iOSContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -87,7 +87,7 @@ public class DayDetailActivity extends InnBaseActivity {
 
         if (null != dayDetail.getResults().get前端()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().get前端()) {
-                webContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                webContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             webContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -96,7 +96,7 @@ public class DayDetailActivity extends InnBaseActivity {
 
         if (null != dayDetail.getResults().getApp()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().getApp()) {
-                appContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                appContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             appContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -105,7 +105,7 @@ public class DayDetailActivity extends InnBaseActivity {
 
         if (null != dayDetail.getResults().getAll()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().getAll()) {
-                allContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                allContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             allContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -114,7 +114,7 @@ public class DayDetailActivity extends InnBaseActivity {
 
         if (null != dayDetail.getResults().get瞎推荐()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().get瞎推荐()) {
-                recommendContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                recommendContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             recommendContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -123,7 +123,7 @@ public class DayDetailActivity extends InnBaseActivity {
 
         if (null != dayDetail.getResults().get拓展资源()) {
             for (DayBaseData dayBaseData : dayDetail.getResults().get拓展资源()) {
-                expandContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
+                expandContentLayout.addView(getContentTextView(dayBaseData.getDesc(), dayBaseData.getUrl()));
             }
             expandContentLayout.setVisibility(View.VISIBLE);
         } else {
@@ -131,10 +131,16 @@ public class DayDetailActivity extends InnBaseActivity {
         }
     }
 
-    private DayDetailTextView getContentTextView(String content) {
+    private DayDetailTextView getContentTextView(final String content, final String contentUrl) {
         DayDetailTextView textView = new DayDetailTextView(context);
         textView.setContentTextView(content);
         textView.setPadding(30, 20, 30, 20);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DayDetailContentActivity.startDayDetailContentActivity(context, content, contentUrl);
+            }
+        });
         return textView;
     }
 

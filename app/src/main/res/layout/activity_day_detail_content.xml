@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_day_detail_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.inn.inn.customview.TopBarView
+        android:id="@+id/day_detail_content_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+
+    <WebView
+        android:id="@+id/day_detail_content_web_view"
+        android:layout_below="@id/day_detail_content_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>
