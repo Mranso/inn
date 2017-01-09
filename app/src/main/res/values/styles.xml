@@ -3,16 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/base_color</item>
+        <item name="colorPrimaryDark">@color/base_color</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="LoadTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+    <style name="WelcomeLoadTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/welcome_image</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
 </resources>

@@ -1,11 +1,10 @@
 package com.inn.inn.mainpage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.inn.inn.R;
-import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.firstpage.model.TimeList;
 import com.inn.inn.network.InnHttpClient;
 
@@ -15,7 +14,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-public class WelcomeActivity extends InnBaseActivity {
+public class WelcomeActivity extends Activity {
 
     public static final String BASE_TIME_DATA = "BASE_TIME_DATA";
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
@@ -23,7 +22,6 @@ public class WelcomeActivity extends InnBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
     }
 

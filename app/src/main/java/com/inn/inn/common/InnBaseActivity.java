@@ -11,7 +11,6 @@ public abstract class InnBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.BaseTheme);
         StatusBarUtils.setColor(this, getResources().getColor(R.color.base_color), 0);
     }
 

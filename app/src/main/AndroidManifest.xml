@@ -34,14 +34,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".mainpage.WelcomeActivity"
-            android:theme="@style/LoadTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeLoadTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".firstpage.DayDetailActivity" />
+        <activity
+            android:name=".firstpage.DayDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
