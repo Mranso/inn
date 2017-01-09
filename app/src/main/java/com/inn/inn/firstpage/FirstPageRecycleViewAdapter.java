@@ -24,7 +24,6 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
 
     private Activity context;
     private List<DayDetail> dayDataList = new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
 
     public FirstPageRecycleViewAdapter(Activity context) {
         this.context = context;
@@ -86,9 +85,6 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (onItemClickListener != null) {
-//                    onItemClickListener.onItemClick(v, position);
-//                }
                 DayDetailActivity.startDayDetailActivity(context, dayDataList.get(position), holder.imageView);
             }
         });
@@ -147,13 +143,5 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
     public void refreshData(List<DayDetail> dayDataList) {
         this.dayDataList = dayDataList;
         notifyDataSetChanged();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

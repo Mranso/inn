@@ -9,11 +9,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
@@ -74,7 +72,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 androidContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             androidContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             androidContentLayout.setVisibility(View.GONE);
         }
 
@@ -83,7 +81,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 iOSContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             iOSContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             iOSContentLayout.setVisibility(View.GONE);
         }
 
@@ -92,7 +90,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 webContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             webContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             webContentLayout.setVisibility(View.GONE);
         }
 
@@ -101,7 +99,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 appContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             appContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             appContentLayout.setVisibility(View.GONE);
         }
 
@@ -110,7 +108,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 allContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             allContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             allContentLayout.setVisibility(View.GONE);
         }
 
@@ -119,7 +117,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 recommendContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             recommendContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             recommendContentLayout.setVisibility(View.GONE);
         }
 
@@ -128,7 +126,7 @@ public class DayDetailActivity extends InnBaseActivity {
                 expandContentLayout.addView(getContentTextView(dayBaseData.getDesc()));
             }
             expandContentLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             expandContentLayout.setVisibility(View.GONE);
         }
     }
@@ -136,7 +134,7 @@ public class DayDetailActivity extends InnBaseActivity {
     private DayDetailTextView getContentTextView(String content) {
         DayDetailTextView textView = new DayDetailTextView(context);
         textView.setContentTextView(content);
-        textView.setPadding(30,20,30,20);
+        textView.setPadding(30, 20, 30, 20);
         return textView;
     }
 

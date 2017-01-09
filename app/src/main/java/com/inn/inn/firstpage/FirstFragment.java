@@ -76,13 +76,6 @@ public class FirstFragment extends Fragment {
 
             }
         });
-
-        firstPageRecycleViewAdapter.setOnItemClickListener(new FirstPageRecycleViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        });
     }
 
     @Override
