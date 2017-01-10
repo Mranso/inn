@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class FirstFragment extends Fragment {
     private List<String> timeLists = new ArrayList<>();
 
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TopBarView topBarView;
     private FirstPageRecycleViewAdapter firstPageRecycleViewAdapter;
 
@@ -55,6 +57,8 @@ public class FirstFragment extends Fragment {
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.first_page_recycle_view);
         topBarView = (TopBarView) view.findViewById(R.id.first_page_top_bar);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.base_color);
         topBarView.setTopBarTitle("每日推荐");
     }
 
@@ -65,15 +69,12 @@ public class FirstFragment extends Fragment {
     }
 
     private void initListener() {
-        topBarView.setOnTopBarClickListener(new TopBarView.TopBarClickListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void leftClickListener() {
-
-            }
-
-            @Override
-            public void rightClickListener() {
-
+            public void onRefresh() {
+                for (int i = 0; i <= 20; i++) {
+                    getDayListData(timeLists.get(i));
+                }
             }
         });
     }
@@ -86,6 +87,7 @@ public class FirstFragment extends Fragment {
     }
 
     private void loadNetData() {
+        swipeRefreshLayout.setRefreshing(true);
         for (int i = 0; i <= 20; i++) {
             getDayListData(timeLists.get(i));
         }
@@ -107,6 +109,7 @@ public class FirstFragment extends Fragment {
                     public void call(DayDetail detail) {
                         dayDetails.add(detail);
                         firstPageRecycleViewAdapter.refreshData(dayDetails);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
         compositeSubscription.add(subscription);
