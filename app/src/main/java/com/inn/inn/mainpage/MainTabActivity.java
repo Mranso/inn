@@ -2,10 +2,12 @@ package com.inn.inn.mainpage;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
@@ -27,6 +29,7 @@ public class MainTabActivity extends InnBaseActivity{
     private RadioGroup radioGroup;
     private Context context;
     private FragmentPageViewAdapter fragmentPageViewAdapter;
+    private long firstTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,18 @@ public class MainTabActivity extends InnBaseActivity{
             case VIEW_PAGE_FLAG_FOUR:
                 fourthButton.setChecked(true);
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstTime > 2000) {
+            Toast.makeText(context, "再按一次退出病历夹", Toast.LENGTH_SHORT).show();
+            firstTime = secondTime;
+        } else {
+            Process.killProcess(Process.myPid());
+            System.exit(0);
         }
     }
 }
