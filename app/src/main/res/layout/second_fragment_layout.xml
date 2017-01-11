@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <com.inn.inn.customview.TopBarView
+        android:id="@+id/beauty_page_top_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.inn.inn.R;
+import com.inn.inn.customview.TopBarView;
 import com.inn.inn.network.InnHttpClient;
 import com.inn.inn.secondpage.model.BeautyListResult;
 
@@ -26,6 +27,7 @@ public class SecondFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private TopBarView topBarView;
 
     private Activity context;
 
@@ -56,6 +58,8 @@ public class SecondFragment extends Fragment {
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.second_page_recycle_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.second_page_swipe_refresh);
+        topBarView = (TopBarView) view.findViewById(R.id.beauty_page_top_bar);
+        topBarView.setTopBarTitle("福利");
     }
 
     private void initRecycle() {
