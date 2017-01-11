@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.inn.inn.R;
@@ -24,6 +25,16 @@ public class BeautyDetailActivity extends InnBaseActivity {
         setContentView(R.layout.activity_beaty_detail);
         initView();
         initData();
+        initListener();
+    }
+
+    private void initListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initData() {

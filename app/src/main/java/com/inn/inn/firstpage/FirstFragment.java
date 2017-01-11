@@ -72,6 +72,7 @@ public class FirstFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                dayDetails.clear();
                 for (int i = 0; i <= 20; i++) {
                     getDayListData(timeLists.get(i));
                 }
