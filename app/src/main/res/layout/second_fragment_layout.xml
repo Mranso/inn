@@ -7,9 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第二个页面"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/second_page_swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/second_page_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

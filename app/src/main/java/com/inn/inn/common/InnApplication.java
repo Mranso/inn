@@ -1,13 +1,11 @@
 package com.inn.inn.common;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.taobao.hotfix.HotFixManager;
-import com.taobao.hotfix.PatchLoadStatusListener;
-import com.taobao.hotfix.util.PatchStatusCode;
 
 public class InnApplication extends Application {
     public static String appVersion;
@@ -22,7 +20,12 @@ public class InnApplication extends Application {
     }
 
     private void initImageLoader() {
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .memoryCacheSizePercentage(10)
+                .build();
         ImageLoader.getInstance().init(config);
     }
 

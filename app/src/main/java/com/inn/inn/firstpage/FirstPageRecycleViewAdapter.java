@@ -1,7 +1,6 @@
 package com.inn.inn.firstpage;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,8 @@ import android.widget.TextView;
 import com.inn.inn.R;
 import com.inn.inn.firstpage.model.DataTypeResult;
 import com.inn.inn.firstpage.model.DayDetail;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.inn.inn.util.imageloader.InnImageDisplayOptions;
+import com.inn.inn.util.imageloader.InnImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
     public void onBindViewHolder(final TimeListViewHolder holder, final int position) {
         DataTypeResult dataTypeResult = dayDataList.get(position).getResults();
         if (dataTypeResult.get福利() != null) {
-            ImageLoader.getInstance().displayImage(dataTypeResult.get福利().get(0).getUrl(), holder.imageView, new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build());
+            InnImageLoader.getInstance().displayImage(holder.imageView, dataTypeResult.get福利().get(0).getUrl(), new InnImageDisplayOptions.Builder().cacheInMemory(true).cacheInDisk(true).build());
         }
 
         List<String> categoryLists = dayDataList.get(position).getCategory();

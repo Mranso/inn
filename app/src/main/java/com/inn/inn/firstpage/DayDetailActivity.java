@@ -18,7 +18,8 @@ import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.DayDetailTextView;
 import com.inn.inn.firstpage.model.DayBaseData;
 import com.inn.inn.firstpage.model.DayDetail;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.inn.inn.util.imageloader.InnImageDisplayOptions;
+import com.inn.inn.util.imageloader.InnImageLoader;
 
 public class DayDetailActivity extends InnBaseActivity {
 
@@ -63,7 +64,7 @@ public class DayDetailActivity extends InnBaseActivity {
         Intent intent = getIntent();
         dayDetail = (DayDetail) intent.getSerializableExtra(INTENT_KEY_DAY_DETAIL);
         String imageUrl = dayDetail.getResults().get福利().get(0).getUrl();
-        ImageLoader.getInstance().displayImage(imageUrl, topImageView);
+        InnImageLoader.getInstance().displayImage(topImageView, imageUrl, new InnImageDisplayOptions.Builder().cacheInMemory(true).cacheInDisk(true).build());
     }
 
     private void loadData() {
