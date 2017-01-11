@@ -1,6 +1,7 @@
 package com.inn.inn.secondpage;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +20,9 @@ import java.util.List;
 public class BeautyListAdapter extends RecyclerView.Adapter<BeautyListAdapter.BeautyListViewHolder> {
 
     private List<DayBaseData> beautyLists = new ArrayList<>();
-    private Context context;
+    private Activity context;
 
-    public BeautyListAdapter(Context context) {
+    public BeautyListAdapter(Activity context) {
         this.context = context;
     }
 
@@ -32,9 +33,15 @@ public class BeautyListAdapter extends RecyclerView.Adapter<BeautyListAdapter.Be
     }
 
     @Override
-    public void onBindViewHolder(BeautyListViewHolder holder, int position) {
-        String url = beautyLists.get(position).getUrl();
+    public void onBindViewHolder(final BeautyListViewHolder holder, int position) {
+        final String url = beautyLists.get(position).getUrl();
         InnImageLoader.getInstance().displayImage(holder.imageView, url, new InnImageDisplayOptions.Builder().cacheInMemory(true).cacheInDisk(true).build());
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BeautyDetailActivity.startBeautyDetailActivity(context, url, holder.imageView);
+            }
+        });
     }
 
     @Override

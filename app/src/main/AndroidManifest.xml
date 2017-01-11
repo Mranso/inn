@@ -48,6 +48,10 @@
         <activity
             android:name=".firstpage.DayDetailContentActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".secondpage.BeautyDetailActivity"
+            android:theme="@style/BeautyDetailTheme"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

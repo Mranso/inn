@@ -1,6 +1,6 @@
 package com.inn.inn.secondpage;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,7 +27,7 @@ public class SecondFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
-    private Context context;
+    private Activity context;
 
     private BeautyListAdapter beautyListAdapter;
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
