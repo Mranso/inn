@@ -46,7 +46,7 @@ public class FirstPageRecycleViewAdapter extends RecyclerView.Adapter<FirstPageR
         }
 
         List<String> categoryLists = dayDataList.get(position).getCategory();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < categoryLists.size(); i++) {
             String sourceString = getSourceString(categoryLists.get(i), dataTypeResult);
             String content = "【" + categoryLists.get(i) + "】" + sourceString;
             switch (i) {

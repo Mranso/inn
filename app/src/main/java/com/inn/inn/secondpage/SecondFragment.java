@@ -13,8 +13,12 @@ import android.view.ViewGroup;
 
 import com.inn.inn.R;
 import com.inn.inn.customview.TopBarView;
+import com.inn.inn.firstpage.model.DayBaseData;
 import com.inn.inn.network.InnHttpClient;
 import com.inn.inn.secondpage.model.BeautyListResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,6 +37,9 @@ public class SecondFragment extends Fragment {
 
     private BeautyListAdapter beautyListAdapter;
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private List<DayBaseData> baseDatas = new ArrayList<>();
+    private int page = 1;
+    private static final int PAGE_SIZE = 20;
 
     @Nullable
     @Override
@@ -50,7 +57,20 @@ public class SecondFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadNetData(40, 1);
+                page = 1;
+                baseDatas.clear();
+                loadNetData();
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (!recyclerView.canScrollVertically(1)) {
+                        loadNetData();
+                    }
+                }
             }
         });
     }
@@ -75,19 +95,21 @@ public class SecondFragment extends Fragment {
     }
 
     private void initData() {
-        loadNetData(40, 1);
+        loadNetData();
     }
 
-    private void loadNetData(int size, int page) {
+    private void loadNetData() {
         swipeRefreshLayout.setRefreshing(true);
-        Subscription subscription = InnHttpClient.getHttpServiceInstance().getBeautyList(size, page)
+        Subscription subscription = InnHttpClient.getHttpServiceInstance().getBeautyList(PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<BeautyListResult>() {
                     @Override
                     public void call(BeautyListResult beautyListResult) {
-                        beautyListAdapter.refreshBeautyList(beautyListResult.getResults());
+                        baseDatas.addAll(beautyListResult.getResults());
+                        beautyListAdapter.refreshBeautyList(baseDatas);
                         swipeRefreshLayout.setRefreshing(false);
+                        page++;
                     }
                 });
         compositeSubscription.add(subscription);

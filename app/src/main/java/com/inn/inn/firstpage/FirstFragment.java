@@ -42,6 +42,9 @@ public class FirstFragment extends Fragment {
     private TopBarView topBarView;
     private FirstPageRecycleViewAdapter firstPageRecycleViewAdapter;
 
+    private int pageSize = 0;
+    private int pagePosition = 20;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +76,9 @@ public class FirstFragment extends Fragment {
             @Override
             public void onRefresh() {
                 dayDetails.clear();
-                for (int i = 0; i <= 20; i++) {
+                pageSize = 0;
+                pagePosition = 20;
+                for (int i = pageSize; i < pagePosition; i++) {
                     getDayListData(timeLists.get(i));
                 }
             }
@@ -83,9 +88,9 @@ public class FirstFragment extends Fragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(RecyclerView.SCROLL_STATE_IDLE == newState){
-                    if(!recyclerView.canScrollVertically(1)){
-
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (!recyclerView.canScrollVertically(1)) {
+                        loadNetData();
                     }
                 }
             }
@@ -102,9 +107,11 @@ public class FirstFragment extends Fragment {
 
     private void loadNetData() {
         swipeRefreshLayout.setRefreshing(true);
-        for (int i = 0; i <= 20; i++) {
+        for (int i = pageSize; i < pagePosition; i++) {
             getDayListData(timeLists.get(i));
         }
+        pageSize = pageSize + 20;
+        pagePosition = pagePosition + 20;
     }
 
     private void initData() {
