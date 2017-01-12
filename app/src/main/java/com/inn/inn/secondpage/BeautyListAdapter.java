@@ -62,4 +62,9 @@ public class BeautyListAdapter extends RecyclerView.Adapter<BeautyListAdapter.Be
         this.beautyLists = beautyLists;
         notifyItemRangeInserted(startPosition, 20);
     }
+
+    public void refreshBeautyList(List<DayBaseData> beautyLists) {
+        this.beautyLists = beautyLists;
+        notifyDataSetChanged();
+    }
 }

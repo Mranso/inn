@@ -59,7 +59,7 @@ public class SecondFragment extends Fragment {
             public void onRefresh() {
                 page = 1;
                 baseDatas.clear();
-                loadNetData();
+                loadNetData(0);
             }
         });
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -68,7 +68,7 @@ public class SecondFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (RecyclerView.SCROLL_STATE_IDLE == newState) {
                     if (!recyclerView.canScrollVertically(1)) {
-                        loadNetData();
+                        loadNetData(1);
                     }
                 }
             }
@@ -95,10 +95,10 @@ public class SecondFragment extends Fragment {
     }
 
     private void initData() {
-        loadNetData();
+        loadNetData(0);
     }
 
-    private void loadNetData() {
+    private void loadNetData(final int type) {
         swipeRefreshLayout.setRefreshing(true);
         Subscription subscription = InnHttpClient.getHttpServiceInstance().getBeautyList(PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
@@ -108,7 +108,11 @@ public class SecondFragment extends Fragment {
                     public void call(BeautyListResult beautyListResult) {
                         int startPosition = baseDatas.size()-1;
                         baseDatas.addAll(beautyListResult.getResults());
-                        beautyListAdapter.refreshBeautyList(baseDatas, startPosition);
+                        if(type == 1){
+                            beautyListAdapter.refreshBeautyList(baseDatas, startPosition);
+                        }else {
+                            beautyListAdapter.refreshBeautyList(baseDatas);
+                        }
                         swipeRefreshLayout.setRefreshing(false);
                         page++;
                     }
