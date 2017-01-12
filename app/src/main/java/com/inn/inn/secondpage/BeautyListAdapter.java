@@ -2,7 +2,6 @@ package com.inn.inn.secondpage;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.inn.inn.util.imageloader.InnImageDisplayOptions;
 import com.inn.inn.util.imageloader.InnImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class BeautyListAdapter extends RecyclerView.Adapter<BeautyListAdapter.BeautyListViewHolder> {
@@ -58,8 +58,8 @@ public class BeautyListAdapter extends RecyclerView.Adapter<BeautyListAdapter.Be
         }
     }
 
-    public void refreshBeautyList(List<DayBaseData> beautyLists) {
+    public void refreshBeautyList(List<DayBaseData> beautyLists, int startPosition) {
         this.beautyLists = beautyLists;
-        notifyDataSetChanged();
+        notifyItemRangeInserted(startPosition, 20);
     }
 }
