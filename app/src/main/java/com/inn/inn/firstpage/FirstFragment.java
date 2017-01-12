@@ -78,6 +78,19 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(RecyclerView.SCROLL_STATE_IDLE == newState){
+                    if(!recyclerView.canScrollVertically(1)){
+
+                    }
+                }
+            }
+        });
+
     }
 
     @Override

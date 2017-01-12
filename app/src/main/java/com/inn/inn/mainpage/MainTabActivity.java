@@ -107,7 +107,7 @@ public class MainTabActivity extends InnBaseActivity{
     public void onBackPressed() {
         long secondTime = System.currentTimeMillis();
         if (secondTime - firstTime > 2000) {
-            Toast.makeText(context, "再按一次退出病历夹", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             firstTime = secondTime;
         } else {
             Process.killProcess(Process.myPid());
