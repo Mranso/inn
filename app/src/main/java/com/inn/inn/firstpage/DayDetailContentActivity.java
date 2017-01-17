@@ -1,18 +1,23 @@
 package com.inn.inn.firstpage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.TopBarView;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class DayDetailContentActivity extends InnBaseActivity {
 
     private static final String INTENT_KEY_CONTENT_TITLE = "INTENT_KEY_CONTENT_TITLE";
@@ -20,6 +25,7 @@ public class DayDetailContentActivity extends InnBaseActivity {
 
     private WebView webView;
     private TopBarView topBarView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +37,13 @@ public class DayDetailContentActivity extends InnBaseActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        String title = intent.getStringExtra(INTENT_KEY_CONTENT_TITLE);
         String contentUrl = intent.getStringExtra(INTENT_KEY_CONTENT_URL);
         webView.loadUrl(contentUrl);
     }
 
     private void initView() {
         webView = (WebView) findViewById(R.id.day_detail_content_web_view);
+        progressBar = (ProgressBar) findViewById(R.id.day_detail_content_progress_bar);
         topBarView = (TopBarView) findViewById(R.id.day_detail_content_top_bar);
         topBarView.setTopBarTitle("推荐详情");
         topBarView.setTopBarLeftVisibility(true);
@@ -80,13 +86,34 @@ public class DayDetailContentActivity extends InnBaseActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.GONE);
+            }
         });
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                progressBar.setProgress(newProgress);
+            }
+        });
+
     }
 
     public static void startDayDetailContentActivity(Context context, String title, String contentUrl) {
