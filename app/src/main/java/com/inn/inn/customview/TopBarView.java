@@ -90,4 +90,16 @@ public class TopBarView extends RelativeLayout {
             backText.setVisibility(GONE);
         }
     }
+
+    public void setTopBarRightVisibility(boolean visibility) {
+        if (visibility) {
+            moreText.setVisibility(VISIBLE);
+        } else {
+            moreText.setVisibility(GONE);
+        }
+    }
+
+    public TextView getTopBarRightView(){
+        return moreText;
+    }
 }
