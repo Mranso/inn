@@ -14,6 +14,7 @@ import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.NoScrollViewPager;
 import com.inn.inn.firstpage.FirstFragment;
 import com.inn.inn.secondpage.SecondFragment;
+import com.inn.inn.thirdpage.ThirdFragment;
 
 import java.util.ArrayList;
 

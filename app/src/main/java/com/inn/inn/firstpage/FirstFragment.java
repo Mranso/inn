@@ -39,7 +39,6 @@ public class FirstFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TopBarView topBarView;
     private FirstPageRecycleViewAdapter firstPageRecycleViewAdapter;
 
     private int pageSize = 0;
@@ -59,7 +58,7 @@ public class FirstFragment extends Fragment {
 
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.first_page_recycle_view);
-        topBarView = (TopBarView) view.findViewById(R.id.first_page_top_bar);
+        TopBarView topBarView = (TopBarView) view.findViewById(R.id.first_page_top_bar);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swipe_refresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.base_color);
         topBarView.setTopBarTitle("每日推荐");

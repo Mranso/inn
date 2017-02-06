@@ -106,11 +106,11 @@ public class SecondFragment extends Fragment {
                 .subscribe(new Action1<BeautyListResult>() {
                     @Override
                     public void call(BeautyListResult beautyListResult) {
-                        int startPosition = baseDatas.size()-1;
+                        int startPosition = baseDatas.size() - 1;
                         baseDatas.addAll(beautyListResult.getResults());
-                        if(type == 1){
+                        if (type == 1) {
                             beautyListAdapter.refreshBeautyList(baseDatas, startPosition);
-                        }else {
+                        } else {
                             beautyListAdapter.refreshBeautyList(baseDatas);
                         }
                         swipeRefreshLayout.setRefreshing(false);

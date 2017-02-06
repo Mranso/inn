@@ -43,7 +43,7 @@
             android:background="@null"
             android:button="@null"
             android:gravity="center_horizontal|center_vertical"
-            android:text="搜索"
+            android:text="资源"
             android:textSize="16sp" />
 
         <RadioButton
