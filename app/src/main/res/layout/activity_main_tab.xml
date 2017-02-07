@@ -20,9 +20,13 @@
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
-            android:gravity="center_horizontal|center_vertical"
+            android:drawableTop="@drawable/tab_everyday_icon_bg"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
             android:text="每日"
-            android:textSize="16sp" />
+            android:textColor="@drawable/tab_text_color"
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/main_tab_radio_second"
@@ -31,9 +35,13 @@
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
-            android:gravity="center_horizontal|center_vertical"
+            android:drawableTop="@drawable/tab_beauty_icon_bg"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
             android:text="福利"
-            android:textSize="16sp" />
+            android:textColor="@drawable/tab_text_color"
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/main_tab_radio_third"
@@ -42,9 +50,13 @@
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
-            android:gravity="center_horizontal|center_vertical"
+            android:drawableTop="@drawable/tab_resource_icon_bg"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
             android:text="资源"
-            android:textSize="16sp" />
+            android:textColor="@drawable/tab_text_color"
+            android:textSize="12sp" />
 
         <RadioButton
             android:id="@+id/main_tab_radio_fourth"
@@ -53,9 +65,13 @@
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
-            android:gravity="center_horizontal|center_vertical"
+            android:drawableTop="@drawable/tab_personal_icon_bg"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
             android:text="个人"
-            android:textSize="16sp" />
+            android:textColor="@drawable/tab_text_color"
+            android:textSize="12sp" />
     </RadioGroup>
 
     <View
