@@ -78,7 +78,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="WEB"
+            android:text="Web"
             android:textSize="16sp"
             android:id="@+id/textView2" />
     </LinearLayout>
