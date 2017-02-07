@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/third_page_menu_android"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -33,6 +34,7 @@
         android:background="#888888"/>
 
     <LinearLayout
+        android:id="@+id/third_page_menu_ios"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -61,6 +63,7 @@
         android:background="#888888"/>
 
     <LinearLayout
+        android:id="@+id/third_page_menu_web"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
