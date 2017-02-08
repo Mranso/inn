@@ -80,7 +80,7 @@ public class ThirdFragment extends Fragment {
                 page = 1;
                 addItemIndex = 0;
                 resourceItemDatas.clear();
-                loadData(type, PAGE_SIZE, page, addItemIndex);
+                loadData(type, page, addItemIndex);
             }
         });
 
@@ -90,7 +90,7 @@ public class ThirdFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (RecyclerView.SCROLL_STATE_IDLE == newState) {
                     if (!recyclerView.canScrollVertically(1)) {
-                        loadData(type, PAGE_SIZE, page, addItemIndex);
+                        loadData(type, page, addItemIndex);
                     }
                 }
             }
@@ -140,7 +140,7 @@ public class ThirdFragment extends Fragment {
         resourceItemDatas.clear();
         topBarView.setTopBarTitle(resourceType);
         popupWindow.dismiss();
-        loadData(type, PAGE_SIZE, page, addItemIndex);
+        loadData(type, page, addItemIndex);
     }
 
     private void initView(View view) {
@@ -161,12 +161,12 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData(type, PAGE_SIZE, page, addItemIndex);
+        loadData(type, page, addItemIndex);
     }
 
-    private void loadData(String type, int pageSize, int pageIndex, final int addItemStartIndex) {
+    private void loadData(String type, int pageIndex, final int addItemStartIndex) {
         swipeRefreshLayout.setRefreshing(true);
-        Subscription subscription = InnHttpClient.getHttpServiceInstance().getResourceDataList(type, pageSize, pageIndex)
+        Subscription subscription = InnHttpClient.getHttpServiceInstance().getResourceDataList(type, PAGE_SIZE, pageIndex)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResourceDataResult>() {
