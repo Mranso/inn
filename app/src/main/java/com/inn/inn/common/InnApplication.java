@@ -2,10 +2,14 @@ package com.inn.inn.common;
 
 import android.app.Application;
 
+import com.inn.inn.BuildConfig;
+import com.inn.inn.util.PhoneInfoUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.taobao.hotfix.HotFixManager;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
 
 public class InnApplication extends Application {
     public static String appVersion;
@@ -17,6 +21,41 @@ public class InnApplication extends Application {
         initApp();
         initHotFix();
         initImageLoader();
+        initBugly();
+    }
+
+    private void initBugly() {
+        if (BuildConfig.DEBUG) {
+            initBuglyConfigForDebug();
+        } else {
+            initBuglyConfig();
+        }
+    }
+
+    //初始化Bugly
+    private void initBuglyConfig() {
+        try {
+            CrashReport.UserStrategy userStrategy = new CrashReport.UserStrategy(this);
+            userStrategy.setAppChannel("Release");
+            userStrategy.setAppReportDelay(3 * 1000);
+            userStrategy.setAppVersion(PhoneInfoUtils.getInstance(this).getAppVersionName());
+            Bugly.init(this, "92ab17b6e7", BuildConfig.DEBUG, userStrategy);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //初始化Debug下Bugly
+    private void initBuglyConfigForDebug() {
+        try {
+            CrashReport.UserStrategy userStrategy = new CrashReport.UserStrategy(this);
+            userStrategy.setAppChannel("Debug");
+            userStrategy.setAppReportDelay(1000);
+            userStrategy.setAppVersion(PhoneInfoUtils.getInstance(this).getAppVersionName());
+            Bugly.init(this, "92ab17b6e7", BuildConfig.DEBUG, userStrategy);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initImageLoader() {
