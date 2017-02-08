@@ -15,6 +15,15 @@ public class InnApplication extends Application {
     public static String appVersion;
     public static String appId;
 
+    private static InnApplication innApplication;
+
+    public static synchronized InnApplication getInstance() {
+        if (innApplication == null) {
+            innApplication = new InnApplication();
+        }
+        return innApplication;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

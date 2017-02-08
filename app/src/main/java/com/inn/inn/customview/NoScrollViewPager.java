@@ -5,10 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * 一个禁止滑动的ViewPage
- * */
-
 public class NoScrollViewPager extends ViewPager {
 
     private boolean isScrollEnabled = false;
