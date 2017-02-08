@@ -18,6 +18,7 @@ import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.DayDetailTextView;
 import com.inn.inn.firstpage.model.DayBaseData;
 import com.inn.inn.firstpage.model.DayDetail;
+import com.inn.inn.mainpage.InnWebViewActivity;
 import com.inn.inn.util.imageloader.InnImageDisplayOptions;
 import com.inn.inn.util.imageloader.InnImageLoader;
 
@@ -139,7 +140,7 @@ public class DayDetailActivity extends InnBaseActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DayDetailContentActivity.startDayDetailContentActivity(context, content, contentUrl);
+                InnWebViewActivity.startDayDetailContentActivity(context, content, contentUrl);
             }
         });
         return textView;

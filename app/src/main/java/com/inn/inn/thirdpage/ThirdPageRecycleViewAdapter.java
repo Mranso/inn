@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.inn.inn.R;
+import com.inn.inn.mainpage.InnWebViewActivity;
 import com.inn.inn.thirdpage.model.ResourceItemData;
 
 import java.util.ArrayList;
@@ -31,11 +32,17 @@ public class ThirdPageRecycleViewAdapter extends RecyclerView.Adapter<ThirdPageR
 
     @Override
     public void onBindViewHolder(ResourceViewHolder holder, int position) {
-        ResourceItemData resourceItemData = resourceItemDatas.get(position);
+        final ResourceItemData resourceItemData = resourceItemDatas.get(position);
         holder.content.setText(resourceItemData.getDesc());
         holder.who.setText(resourceItemData.getWho());
         String time = resourceItemData.getCreatedAt().substring(0, 10);
         holder.time.setText(time);
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InnWebViewActivity.startDayDetailContentActivity(context, resourceItemData.getDesc(), resourceItemData.getUrl());
+            }
+        });
     }
 
     @Override

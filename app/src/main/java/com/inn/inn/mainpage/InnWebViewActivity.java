@@ -1,4 +1,4 @@
-package com.inn.inn.firstpage;
+package com.inn.inn.mainpage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,7 +18,7 @@ import com.inn.inn.common.InnBaseActivity;
 import com.inn.inn.customview.TopBarView;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class DayDetailContentActivity extends InnBaseActivity {
+public class InnWebViewActivity extends InnBaseActivity {
 
     private static final String INTENT_KEY_CONTENT_TITLE = "INTENT_KEY_CONTENT_TITLE";
     private static final String INTENT_KEY_CONTENT_URL = "INTENT_KEY_CONTENT_URL";
@@ -38,6 +38,8 @@ public class DayDetailContentActivity extends InnBaseActivity {
     private void initData() {
         Intent intent = getIntent();
         String contentUrl = intent.getStringExtra(INTENT_KEY_CONTENT_URL);
+        String title = intent.getStringExtra(INTENT_KEY_CONTENT_TITLE);
+        topBarView.setTopBarTitle(title);
         webView.loadUrl(contentUrl);
     }
 
@@ -117,7 +119,7 @@ public class DayDetailContentActivity extends InnBaseActivity {
     }
 
     public static void startDayDetailContentActivity(Context context, String title, String contentUrl) {
-        Intent intent = new Intent(context, DayDetailContentActivity.class);
+        Intent intent = new Intent(context, InnWebViewActivity.class);
         intent.putExtra(INTENT_KEY_CONTENT_TITLE, title);
         intent.putExtra(INTENT_KEY_CONTENT_URL, contentUrl);
         context.startActivity(intent);

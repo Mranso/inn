@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.inn.inn.network.InnHttpClient;
 import com.inn.inn.thirdpage.model.ResourceDataResult;
 import com.inn.inn.thirdpage.model.ResourceItemData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscription;
@@ -32,10 +34,20 @@ public class ThirdFragment extends Fragment {
 
     private TopBarView topBarView;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private Context context;
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
     private ThirdPageRecycleViewAdapter thirdPageRecycleViewAdapter;
     private PopupWindow popupWindow;
+
+    private List<ResourceItemData> resourceItemDatas = new ArrayList<>();
+    private static final int PAGE_SIZE = 20;
+    private static final String ANDROID = "Android";
+    private static final String IOS = "iOS";
+    private static final String WEB = "前端";
+    private int page = 1;
+    private String type = "Android";
+    private int addItemIndex = 0;
 
     @Nullable
     @Override
@@ -61,6 +73,28 @@ public class ThirdFragment extends Fragment {
                 showPopupWindow();
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                addItemIndex = 0;
+                resourceItemDatas.clear();
+                loadData(type, PAGE_SIZE, page, addItemIndex);
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (!recyclerView.canScrollVertically(1)) {
+                        loadData(type, PAGE_SIZE, page, addItemIndex);
+                    }
+                }
+            }
+        });
     }
 
     private void showPopupWindow() {
@@ -82,30 +116,39 @@ public class ThirdFragment extends Fragment {
         view.findViewById(R.id.third_page_menu_android).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData("Android", 20, 1);
-                popupWindow.dismiss();
+                setEvent(ANDROID);
             }
         });
         view.findViewById(R.id.third_page_menu_ios).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData("iOS", 20, 1);
-                popupWindow.dismiss();
+                setEvent(IOS);
             }
         });
         view.findViewById(R.id.third_page_menu_web).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData("前端", 20, 1);
-                popupWindow.dismiss();
+                setEvent(WEB);
             }
         });
     }
 
+    private void setEvent(String resourceType) {
+        type = resourceType;
+        page = 1;
+        addItemIndex = 0;
+        resourceItemDatas.clear();
+        topBarView.setTopBarTitle(resourceType);
+        popupWindow.dismiss();
+        loadData(type, PAGE_SIZE, page, addItemIndex);
+    }
+
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.third_page_recycle_view);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.third_page_swipe_refresh);
+        swipeRefreshLayout.setColorSchemeColors(getActivity().getResources().getColor(R.color.base_color));
         topBarView = (TopBarView) view.findViewById(R.id.third_page_top_bar);
-        topBarView.setTopBarTitle("分类资源");
+        topBarView.setTopBarTitle(ANDROID);
         topBarView.setTopBarRightVisibility(true);
     }
 
@@ -118,18 +161,22 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData("Android", 20, 1);
+        loadData(type, PAGE_SIZE, page, addItemIndex);
     }
 
-    private void loadData(String type, int size, int page) {
-        Subscription subscription = InnHttpClient.getHttpServiceInstance().getResourceDataList(type, size, page)
+    private void loadData(String type, int pageSize, int pageIndex, final int addItemStartIndex) {
+        swipeRefreshLayout.setRefreshing(true);
+        Subscription subscription = InnHttpClient.getHttpServiceInstance().getResourceDataList(type, pageSize, pageIndex)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResourceDataResult>() {
                     @Override
                     public void call(ResourceDataResult resourceDataResult) {
-                        List<ResourceItemData> resourceItemDatas = resourceDataResult.getResults();
-                        thirdPageRecycleViewAdapter.refreshResourceList(resourceItemDatas, 0);
+                        swipeRefreshLayout.setRefreshing(false);
+                        resourceItemDatas.addAll(resourceDataResult.getResults());
+                        thirdPageRecycleViewAdapter.refreshResourceList(resourceItemDatas, addItemStartIndex);
+                        addItemIndex = resourceItemDatas.size() - 1;
+                        page++;
                     }
                 });
         compositeSubscription.add(subscription);

@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="base_color">#1C86EE</color>
     <color name="tab_content_text_normal">#929292</color>
+    <color name="list_item_selected">#5CACEE</color>
 </resources>

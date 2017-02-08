@@ -46,7 +46,7 @@
             android:name=".firstpage.DayDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".firstpage.DayDetailContentActivity"
+            android:name=".mainpage.InnWebViewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".secondpage.BeautyDetailActivity"
