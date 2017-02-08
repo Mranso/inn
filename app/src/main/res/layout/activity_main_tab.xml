@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="#EEEEEE"
         android:orientation="horizontal">
 
         <RadioButton
@@ -39,7 +38,7 @@
             android:gravity="center_horizontal|bottom"
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
-            android:text="福利"
+            android:text="妹子"
             android:textColor="@drawable/tab_text_color"
             android:textSize="12sp" />
 
@@ -69,7 +68,7 @@
             android:gravity="center_horizontal|bottom"
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
-            android:text="个人"
+            android:text="我的"
             android:textColor="@drawable/tab_text_color"
             android:textSize="12sp" />
     </RadioGroup>

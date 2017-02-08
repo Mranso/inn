@@ -79,7 +79,7 @@ public class SecondFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.second_page_recycle_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.second_page_swipe_refresh);
         topBarView = (TopBarView) view.findViewById(R.id.beauty_page_top_bar);
-        topBarView.setTopBarTitle("福利");
+        topBarView.setTopBarTitle("妹子");
     }
 
     private void initRecycle() {
