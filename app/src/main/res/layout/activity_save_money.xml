@@ -34,22 +34,40 @@
             android:textSize="64sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/save_money_everyday_text"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/save_money_everyday_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:layout_below="@id/my_money_box_balance_layout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:fontFamily="sans-serif-thin"
-        android:text="0"
-        android:textSize="40sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="今天我存了："/>
+        
+        <TextView
+            android:id="@+id/save_money_everyday_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-thin"
+            android:text="0"
+            android:textSize="40sp" />
+        
+    </RelativeLayout>
+    
 
     <Button
         android:id="@+id/save_money_everyday_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/save_money_everyday_text"
+        android:layout_below="@id/save_money_everyday_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="计算" />

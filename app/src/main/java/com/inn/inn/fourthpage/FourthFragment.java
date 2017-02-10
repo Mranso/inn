@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.inn.inn.R;
 import com.inn.inn.customview.TopBarView;
-import com.inn.inn.secondpage.savemoney.SaveMoneyActivity;
+import com.inn.inn.fourthpage.savemoney.SaveMoneyActivity;
 
 
 public class FourthFragment extends Fragment {

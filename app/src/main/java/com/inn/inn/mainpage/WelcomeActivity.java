@@ -39,6 +39,7 @@ public class WelcomeActivity extends Activity {
                     @Override
                     public void call(TimeList timeList) {
                         goMainTabActivity(timeList);
+//                        AdvertisementActivity.startAdvertisementActivity(WelcomeActivity.this);
                     }
                 });
         compositeSubscription.add(subscription);

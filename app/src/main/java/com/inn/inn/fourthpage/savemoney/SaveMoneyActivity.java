@@ -1,4 +1,4 @@
-package com.inn.inn.secondpage.savemoney;
+package com.inn.inn.fourthpage.savemoney;
 
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
@@ -13,12 +13,10 @@ import android.widget.TextView;
 
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
-import com.inn.inn.util.SharedPreferencesUtils;
+import com.inn.inn.util.DateUtil;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -27,7 +25,7 @@ public class SaveMoneyActivity extends InnBaseActivity {
     private Button saveMoneyButton;
     private TextView everydayMoney;
     private TextView moneyBoxBalance;
-    private List<String> moneyList = new ArrayList<>();
+    private List<SaveMoney> moneyList = new ArrayList<>();
 
 
     @Override
@@ -39,24 +37,18 @@ public class SaveMoneyActivity extends InnBaseActivity {
         initListener();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setMoneyBoxBalance();
+    }
+
     private void initData() {
-        String moneyString = SharedPreferencesUtils.getInstance().getMoneyString();
-        StringBuilder spMoneyString = new StringBuilder();
-        if (moneyString.equals("9999")) {
-            for (int i = 1; i <= 365; i++) {
-                moneyList.add(String.valueOf(i));
-                if (i == 365) {
-                    spMoneyString.append(String.valueOf(i));
-                } else {
-                    spMoneyString.append(String.valueOf(i)).append("|");
-                }
-            }
-            Collections.shuffle(moneyList);
-            SharedPreferencesUtils.getInstance().putMoneyString(spMoneyString.toString());
+        if (SaveMoneyDao.getInstance().checkDataIsEmpty()) {
+            moneyList = SaveMoney.initSaveMoneyData();
+            SaveMoneyDao.getInstance().insertPatients(moneyList);
         } else {
-            String[] moneys = moneyString.split("|");
-            moneyList = Arrays.asList(moneys);
-            Collections.shuffle(moneyList);
+            moneyList = SaveMoneyDao.getInstance().loadUnusedSaveMoneys();
         }
     }
 
@@ -66,15 +58,32 @@ public class SaveMoneyActivity extends InnBaseActivity {
             public void onClick(View v) {
                 Random random = new Random();
                 int position = random.nextInt(moneyList.size());
-                animationTo(everydayMoney, moneyList.get(position));
+                SaveMoney saveMoney = moneyList.get(position);
+                updateSaveMoneyDB(saveMoney);
+                setEverydayMoney(saveMoney);
+                setMoneyBoxBalance();
                 moneyList.remove(position);
-                StringBuilder stringBuilder = new StringBuilder();
-                for (String s : moneyList) {
-                    stringBuilder.append(s).append("|");
-                }
-                SharedPreferencesUtils.getInstance().putMoneyString(stringBuilder.toString());
             }
         });
+    }
+
+    private void updateSaveMoneyDB(SaveMoney saveMoney){
+        saveMoney.setUsedStatus(1);
+        saveMoney.setUsedTime(DateUtil.getTodayStr());
+        SaveMoneyDao.getInstance().updateSaveMoney(saveMoney);
+    }
+
+    private void setEverydayMoney(SaveMoney saveMoney){
+        animationTo(everydayMoney, String.valueOf(saveMoney.getMoney()));
+    }
+
+    private void setMoneyBoxBalance(){
+        List<SaveMoney> savedMoney = SaveMoneyDao.getInstance().loadUsedSaveMoneys();
+        int moneySum = 0;
+        for (SaveMoney money : savedMoney) {
+            moneySum += money.getMoney();
+        }
+        animationTo(moneyBoxBalance, String.valueOf(moneySum));
     }
 
     private void initView() {
@@ -83,7 +92,7 @@ public class SaveMoneyActivity extends InnBaseActivity {
         moneyBoxBalance = (TextView) findViewById(R.id.my_money_box_balance);
     }
 
-    public static void startSaveMoneyActivity(Context context){
+    public static void startSaveMoneyActivity(Context context) {
         Intent intent = new Intent(context, SaveMoneyActivity.class);
         context.startActivity(intent);
     }

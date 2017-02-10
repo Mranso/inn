@@ -2,6 +2,7 @@ package com.inn.inn.common;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.inn.inn.BuildConfig;
 import com.inn.inn.util.PhoneInfoUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -17,20 +18,23 @@ public class InnApplication extends Application {
 
     private static InnApplication innApplication;
 
-    public static synchronized InnApplication getInstance() {
-        if (innApplication == null) {
-            innApplication = new InnApplication();
-        }
+    public static InnApplication getInstance() {
         return innApplication;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        innApplication = this;
         initApp();
         initHotFix();
         initImageLoader();
         initBugly();
+        initStetho();
+    }
+
+    private void initStetho() {
+        Stetho.initializeWithDefaults(this);
     }
 
     private void initBugly() {
