@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inn.inn.R;
 import com.inn.inn.common.InnBaseActivity;
@@ -22,9 +23,12 @@ import java.util.Random;
 
 public class SaveMoneyActivity extends InnBaseActivity {
 
+    private Context context;
     private Button saveMoneyButton;
     private TextView everydayMoney;
     private TextView moneyBoxBalance;
+    private TextView showRecord;
+    private TextView timeRecord;
     private List<SaveMoney> moneyList = new ArrayList<>();
 
 
@@ -32,6 +36,7 @@ public class SaveMoneyActivity extends InnBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_money);
+        context = this;
         initData();
         initView();
         initListener();
@@ -41,6 +46,10 @@ public class SaveMoneyActivity extends InnBaseActivity {
     protected void onResume() {
         super.onResume();
         setMoneyBoxBalance();
+        setTimeRecord();
+        if (!checkTodaySaveMoney()) {
+            setEverydayMoney(getTodaySaveMoney());
+        }
     }
 
     private void initData() {
@@ -56,28 +65,45 @@ public class SaveMoneyActivity extends InnBaseActivity {
         saveMoneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random random = new Random();
-                int position = random.nextInt(moneyList.size());
-                SaveMoney saveMoney = moneyList.get(position);
-                updateSaveMoneyDB(saveMoney);
-                setEverydayMoney(saveMoney);
-                setMoneyBoxBalance();
-                moneyList.remove(position);
+                if (checkTodaySaveMoney()) {
+                    Random random = new Random();
+                    int position = random.nextInt(moneyList.size());
+                    SaveMoney saveMoney = moneyList.get(position);
+                    updateSaveMoneyDB(saveMoney);
+                    setEverydayMoney(saveMoney);
+                    setMoneyBoxBalance();
+                    setTimeRecord();
+                    moneyList.remove(position);
+                } else {
+                    Toast.makeText(context, "今天你已经存过钱啦，明天再来吧～", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        showRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveMoneyRecordActivity.startSaveMoneyRecordActivity(context);
             }
         });
     }
 
-    private void updateSaveMoneyDB(SaveMoney saveMoney){
+    private void setTimeRecord() {
+        List<SaveMoney> saveMoneys = SaveMoneyDao.getInstance().loadUsedSaveMoneys();
+        timeRecord.setText(saveMoneys.size()+"/365");
+    }
+
+    private void updateSaveMoneyDB(SaveMoney saveMoney) {
         saveMoney.setUsedStatus(1);
         saveMoney.setUsedTime(DateUtil.getTodayStr());
         SaveMoneyDao.getInstance().updateSaveMoney(saveMoney);
     }
 
-    private void setEverydayMoney(SaveMoney saveMoney){
+    private void setEverydayMoney(SaveMoney saveMoney) {
         animationTo(everydayMoney, String.valueOf(saveMoney.getMoney()));
     }
 
-    private void setMoneyBoxBalance(){
+    private void setMoneyBoxBalance() {
         List<SaveMoney> savedMoney = SaveMoneyDao.getInstance().loadUsedSaveMoneys();
         int moneySum = 0;
         for (SaveMoney money : savedMoney) {
@@ -86,10 +112,24 @@ public class SaveMoneyActivity extends InnBaseActivity {
         animationTo(moneyBoxBalance, String.valueOf(moneySum));
     }
 
+    private boolean checkTodaySaveMoney() {
+        String todayTime = DateUtil.getTodayStr();
+        List<SaveMoney> saveMoneys = SaveMoneyDao.getInstance().loadTodaySaveMoneys(todayTime);
+        return saveMoneys.isEmpty();
+    }
+
+    private SaveMoney getTodaySaveMoney() {
+        String todayTime = DateUtil.getTodayStr();
+        List<SaveMoney> saveMoneys = SaveMoneyDao.getInstance().loadTodaySaveMoneys(todayTime);
+        return saveMoneys.get(0);
+    }
+
     private void initView() {
         saveMoneyButton = (Button) findViewById(R.id.save_money_everyday_button);
         everydayMoney = (TextView) findViewById(R.id.save_money_everyday_text);
         moneyBoxBalance = (TextView) findViewById(R.id.my_money_box_balance);
+        showRecord = (TextView) findViewById(R.id.save_money_show_record);
+        timeRecord = (TextView) findViewById(R.id.time_record);
     }
 
     public static void startSaveMoneyActivity(Context context) {

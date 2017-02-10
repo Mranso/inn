@@ -78,6 +78,7 @@ public class SecondFragment extends Fragment {
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.second_page_recycle_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.second_page_swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.base_color);
         topBarView = (TopBarView) view.findViewById(R.id.beauty_page_top_bar);
         topBarView.setTopBarTitle("妹子");
     }

@@ -146,7 +146,7 @@ public class ThirdFragment extends Fragment {
     private void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.third_page_recycle_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.third_page_swipe_refresh);
-        swipeRefreshLayout.setColorSchemeColors(getActivity().getResources().getColor(R.color.base_color));
+        swipeRefreshLayout.setColorSchemeResources(R.color.base_color);
         topBarView = (TopBarView) view.findViewById(R.id.third_page_top_bar);
         topBarView.setTopBarTitle(ANDROID);
         topBarView.setTopBarRightVisibility(true);

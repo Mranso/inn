@@ -17,7 +17,6 @@ import com.inn.inn.fourthpage.savemoney.SaveMoneyActivity;
 public class FourthFragment extends Fragment {
 
     private Context context;
-    private TopBarView topBarView;
     private LinearLayout saveMoney;
 
     @Nullable
@@ -42,7 +41,5 @@ public class FourthFragment extends Fragment {
 
     private void initView(View view) {
         saveMoney = (LinearLayout) view.findViewById(R.id.fourth_page_save_money);
-        topBarView = (TopBarView) view.findViewById(R.id.fourth_page_top_bar);
-        topBarView.setTopBarTitle("我的");
     }
 }

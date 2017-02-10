@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_save_money_record"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.inn.inn.customview.TopBarView
+        android:id="@+id/save_money_record_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/save_money_record_recycle_view"
+        android:layout_below="@id/save_money_record_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

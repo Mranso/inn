@@ -64,6 +64,7 @@
         <activity
             android:name=".mainpage.AdvertisementActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".fourthpage.savemoney.SaveMoneyRecordActivity"></activity>
     </application>
 
 </manifest>
