@@ -28,7 +28,7 @@ public class SaveMoneyRecordActivity extends InnBaseActivity {
     }
 
     private void initData() {
-        List<SaveMoney> saveMoneys = SaveMoneyDao.getInstance().loadUsedSaveMoneys();
+        List<SaveMoney> saveMoneys = SaveMoneyDao.getInstance().loadUsedSaveMoneysAndOrderBy();
         SaveMoneyRecordAdapter saveMoneyRecordAdapter = new SaveMoneyRecordAdapter(context, saveMoneys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(saveMoneyRecordAdapter);

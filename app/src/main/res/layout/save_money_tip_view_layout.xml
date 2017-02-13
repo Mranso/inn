@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/third_more_menu_background"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="功能介绍"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="1. 选择一个银行账户／支付宝／微信作为固定存钱的小仓库；\n2. 每天随机出一个1-365之间的数，将对应的金额存放到小金库里；\n3. 每天存放的金额只会是唯一并一年内不会重复；\n4. 如果觉得数字过大，可以将每天获取的数据进行*／10处理，这样存钱金额就会是0.1-36.5区间内；\n5. 这样一年下来，你的小金库将会有66795块大洋了。"/>
+
+    </LinearLayout>
+
+</LinearLayout>

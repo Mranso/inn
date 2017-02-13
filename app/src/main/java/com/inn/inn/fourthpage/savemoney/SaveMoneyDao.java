@@ -62,24 +62,6 @@ public class SaveMoneyDao extends SQLiteOpenHelper {
 
     }
 
-    public List<SaveMoney> loadAllSaveMoneys() {
-        synchronized (object) {
-            SQLiteDatabase database = null;
-            Cursor cursor = null;
-            try {
-                database = getReadableDatabase();
-                cursor = database.query(SAVE_MONEY_TABLE, new String[]{"Id", "Money", "UsedStatus", "UsedTime"}, "", null, null, null, null);
-                return SaveMoney.toList(cursor);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                DatabaseUtil.closeCursorQuietly(cursor);
-                DatabaseUtil.closeDatabaseQuietly(database);
-            }
-            return new ArrayList<>();
-        }
-    }
-
     public List<SaveMoney> loadUnusedSaveMoneys() {
         synchronized (object) {
             SQLiteDatabase database = null;
@@ -105,6 +87,24 @@ public class SaveMoneyDao extends SQLiteOpenHelper {
             try {
                 database = getReadableDatabase();
                 cursor = database.query(SAVE_MONEY_TABLE, new String[]{"Id", "Money", "UsedStatus", "UsedTime"}, "UsedStatus = ?", new String[]{"1"}, null, null, null);
+                return SaveMoney.toList(cursor);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                DatabaseUtil.closeCursorQuietly(cursor);
+                DatabaseUtil.closeDatabaseQuietly(database);
+            }
+            return new ArrayList<>();
+        }
+    }
+
+    public List<SaveMoney> loadUsedSaveMoneysAndOrderBy() {
+        synchronized (object) {
+            SQLiteDatabase database = null;
+            Cursor cursor = null;
+            try {
+                database = getReadableDatabase();
+                cursor = database.query(SAVE_MONEY_TABLE, new String[]{"Id", "Money", "UsedStatus", "UsedTime"}, "UsedStatus = ?", new String[]{"1"}, null, null, "UsedTime DESC");
                 return SaveMoney.toList(cursor);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -188,20 +188,4 @@ public class SaveMoneyDao extends SQLiteOpenHelper {
         }
     }
 
-    public void deleteSaveMoneyById(String id) {
-        synchronized (object) {
-            SQLiteDatabase database = null;
-            try {
-                database = getWritableDatabase();
-                database.beginTransaction();
-                database.delete(SAVE_MONEY_TABLE, "Id=?", new String[]{id});
-                database.setTransactionSuccessful();
-                database.endTransaction();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                DatabaseUtil.closeDatabaseQuietly(database);
-            }
-        }
-    }
 }
